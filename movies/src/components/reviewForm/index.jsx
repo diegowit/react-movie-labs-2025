@@ -1,32 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { MoviesContext } from "../../contexts/moviesContext";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useForm, Controller } from "react-hook-form";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { useNavigate } from "react-router"; 
 
 const ratings = [
-  {
-    value: 5,
-    label: "Excellent",
-  },
-  {
-    value: 4,
-    label: "Good",
-  },
-  {
-    value: 3,
-    label: "Average",
-  },
-  {
-    value: 2,
-    label: "Poor",
-  },
-  {
-    value: 0,
-    label: "Terrible",
-  },
+  { value: 5, label: "Excellent" },
+  { value: 4, label: "Good" },
+  { value: 3, label: "Average" },
+  { value: 2, label: "Poor" },
+  { value: 0, label: "Terrible" },
 ];
 
 const styles = {
@@ -57,30 +46,39 @@ const styles = {
 };
 
 const ReviewForm = ({ movie }) => {
+  const context = useContext(MoviesContext);
+  const navigate = useNavigate(); // ✅ moved inside
+  const [open, setOpen] = useState(false); // ✅ moved inside
   const [rating, setRating] = useState(3);
-  
+
   const defaultValues = {
     author: "",
     review: "",
     agree: false,
     rating: "3",
   };
-  
+
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm(defaultValues);
+  } = useForm({ defaultValues });
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
 
+  const handleSnackClose = () => {
+    setOpen(false);
+    navigate("/movies/favorites");
+  };
+
   const onSubmit = (review) => {
     review.movieId = movie.id;
     review.rating = rating;
-    console.log(review);
+    context.addReview(movie, review);
+    setOpen(true);
   };
 
   return (
@@ -89,7 +87,21 @@ const ReviewForm = ({ movie }) => {
         Write a review
       </Typography>
 
-      <form sx={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+      <Snackbar
+        sx={styles.snack}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={open}
+        onClose={handleSnackClose}
+        autoHideDuration={3000}
+      >
+        <MuiAlert severity="success" variant="filled" onClose={handleSnackClose}>
+          <Typography variant="h5">
+            Thank you for submitting a review!
+          </Typography>
+        </MuiAlert>
+      </Snackbar>
+
+      <Box component="form" sx={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <Controller
           name="author"
           control={control}
@@ -111,10 +123,11 @@ const ReviewForm = ({ movie }) => {
           )}
         />
         {errors.author && (
-          <Typography variant="h6" component="p">
+          <Typography variant="h6" component="p" color="error">
             {errors.author.message}
           </Typography>
         )}
+
         <Controller
           name="review"
           control={control}
@@ -140,40 +153,29 @@ const ReviewForm = ({ movie }) => {
           )}
         />
         {errors.review && (
-          <Typography variant="h6" component="p">
+          <Typography variant="h6" component="p" color="error">
             {errors.review.message}
           </Typography>
         )}
 
-        <Controller
-          control={control}
-          name="rating"
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              id="select-rating"
-              select
-              variant="outlined"
-              label="Rating Select"
-              value={rating}
-              onChange={handleRatingChange}
-              helperText="Don't forget your rating"
-            >
-              {ratings.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          )}
-        />
+        <TextField
+          id="select-rating"
+          select
+          variant="outlined"
+          label="Rating Select"
+          value={rating}
+          onChange={handleRatingChange}
+          helperText="Don't forget your rating"
+        >
+          {ratings.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
-        <Box sx={styles.buttons}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={styles.submit}
-          >
+        <Box sx={{ marginTop: 2 }}>
+          <Button type="submit" variant="contained" color="primary" sx={styles.submit}>
             Submit
           </Button>
           <Button
@@ -184,14 +186,14 @@ const ReviewForm = ({ movie }) => {
             onClick={() => {
               reset({
                 author: "",
-                content: "",
+                review: "",
               });
             }}
           >
             Reset
           </Button>
         </Box>
-      </form>
+      </Box>
     </Box>
   );
 };
