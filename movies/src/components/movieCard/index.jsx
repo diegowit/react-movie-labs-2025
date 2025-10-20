@@ -16,13 +16,15 @@ import { Link } from "react-router";
 import Avatar from '@mui/material/Avatar';
 import React, { useContext  } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 
 
 export default function MovieCard({ movie, action }) {
 
 
-    const { favorites, addToFavorites } = useContext(MoviesContext);
+    const { favorites, addToFavorites, mustWatch, addToMustWatch } = useContext(MoviesContext);
+    
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -34,6 +36,14 @@ export default function MovieCard({ movie, action }) {
     e.preventDefault();
     addToFavorites(movie);
   };
+
+  
+  const handleAddToMustWatch = (e) => {
+    e.preventDefault();
+    addToMustWatch(movie);
+  };
+
+  
 
 
 
