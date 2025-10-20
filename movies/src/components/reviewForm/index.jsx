@@ -47,8 +47,8 @@ const styles = {
 
 const ReviewForm = ({ movie }) => {
   const context = useContext(MoviesContext);
-  const navigate = useNavigate(); // ✅ moved inside
-  const [open, setOpen] = useState(false); // ✅ moved inside
+  const navigate = useNavigate(); 
+  const [open, setOpen] = useState(false); 
   const [rating, setRating] = useState(3);
 
   const defaultValues = {
