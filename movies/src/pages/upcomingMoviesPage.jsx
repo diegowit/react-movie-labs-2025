@@ -25,6 +25,7 @@ const UpcomingMoviesPage = (props) => {
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
+  // Redundant, but necessary to avoid app crashing.
   const favorites = movies.filter(m => m.favorite)
   localStorage.setItem('favorites', JSON.stringify(favorites))
   const addToFavorites = (movieId) => true 
@@ -33,10 +34,15 @@ return (
       <PageTemplate
         title="Upcoming Movies"
         movies={movies}
+
         action={(movie) => {
           return <AddToPlaylistsIcon movie={movie} />
         }}
       />
+
   );
 };
 export default  UpcomingMoviesPage;
+
+
+
