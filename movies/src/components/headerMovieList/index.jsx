@@ -17,18 +17,32 @@ const Header = (props ) => {
         display: "flex",
         justifyContent: "space-around",
         flexWrap: "wrap",
+        color: "#E1D0B3",
         marginBottom: 1.5,
+        background: '#703B3B'
       }}
       >
-      <IconButton aria-label="go back" onClick={() => navigate(-1)}>
-        <ArrowBackIcon color="primary" fontSize="large" />
+      <IconButton aria-label="go back" onClick={() => navigate(+1)}
+  sx={{
+    transition: 'transform 1s ease',
+    '&:hover': {
+      transform: 'translateX(-100px) scale(5.5)',
+    },
+  }}
+><ArrowBackIcon color="#E1D0B3" fontSize="large" />
       </IconButton>
 
       <Typography variant="h4" component="h3">
         {title}
       </Typography>
-      <IconButton aria-label="go forward" onClick={() => navigate(+1)}>
-        <ArrowForwardIcon color="primary" fontSize="large" />
+      <IconButton aria-label="go forward" onClick={() => navigate(+1)}
+  sx={{
+    transition: 'transform 1s ease',
+    '&:hover': {
+      transform: 'translateX(100px) scale(5.5)',
+    },
+  }}>
+        <ArrowForwardIcon color="#E1D0B3" fontSize="large" />
       </IconButton>
     </Paper>
   );
