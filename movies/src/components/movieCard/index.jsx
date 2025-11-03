@@ -65,7 +65,7 @@ export default function MovieCard({ movie, action }) {
       />
 
       <CardMedia
-        sx={{ height: 500 }}
+        sx={{ height: 400 }}
         image={
           movie.poster_path
             ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
@@ -80,7 +80,7 @@ export default function MovieCard({ movie, action }) {
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid size={{xs: 6}}>
+          <Grid size={{xs: 60}}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
@@ -93,7 +93,7 @@ export default function MovieCard({ movie, action }) {
         {action(movie)}
       
         <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
+          <Button variant="outlined" size="small" color="info">
             More Info ...
           </Button>
         </Link>
