@@ -43,9 +43,6 @@ export default function MovieCard({ movie, action }) {
     addToMustWatch(movie);
   };
 
-  
-
-
 
   return (
     <Card>
@@ -65,7 +62,15 @@ export default function MovieCard({ movie, action }) {
       />
 
       <CardMedia
-        sx={{ height: 400 }}
+        sx={{
+    height: 400,
+    borderRadius: "40px",
+    transition: "transform 1s ease",
+    "&:hover": {
+      transform: "scale(1.2)",
+    },
+         
+         }}
         image={
           movie.poster_path
             ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
