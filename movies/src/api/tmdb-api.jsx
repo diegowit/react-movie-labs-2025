@@ -92,6 +92,19 @@ export const getMovie = (args) => {
   };
 
 
+//moviesRecommendation
+   export const getMovieRecommendations = async (movieId, page = 1) => {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.status_message || "Failed to fetch recommendations");
+  }
+  return res.json();
+};
+
+
 
 export const getUpcomingMovies = () => {
   return fetch(

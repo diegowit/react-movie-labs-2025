@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
+import MovieRecommendations from "../movieRecommendations"
 
 
 const root = {
@@ -81,6 +82,25 @@ const [drawerOpen, setDrawerOpen] = useState(false);
             <Chip label={g.name} sx={{...chip}} />
           </li>
         ))}
+
+
+        <Fab
+        color="secondary"
+        variant="extended"
+        onClick={() =>setDrawerOpen(true)}
+        sx={{
+          position: 'fixed',
+          bottom: '1em',
+          right: '20em'
+        }}
+      >
+        <NavigationIcon />
+        Recommendations
+      </Fab>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <MovieRecommendations movie={movie} />
+      </Drawer>
+      
       </Paper>
 
 
@@ -102,7 +122,14 @@ const [drawerOpen, setDrawerOpen] = useState(false);
         <MovieReviews movie={movie} />
       </Drawer>
 
+  
+
+
       </>
+
+      
+
+      
   );
 };
 export default MovieDetails ;

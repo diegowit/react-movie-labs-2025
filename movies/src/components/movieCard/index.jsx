@@ -45,7 +45,11 @@ export default function MovieCard({ movie, action }) {
 
 
   return (
-    <Card>
+    <Card   sx={{
+    border: "2px solid #9BB4C0",
+    borderRadius: "15px",
+
+  }}>
             <CardHeader
         avatar={
           movie.favorite ? (
@@ -77,7 +81,8 @@ export default function MovieCard({ movie, action }) {
             : img
         }
       />
-      <CardContent>
+      <CardContent
+>
         <Grid container>
           <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">

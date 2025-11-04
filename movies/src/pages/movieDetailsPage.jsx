@@ -5,6 +5,7 @@ import PageTemplate from "../components/templateMoviePage";
 import { getMovie } from '../api/tmdb-api'
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner'
+
 // import useMovie from "../hooks/useMovie";   Redundant
 
 const MoviePage = (props) => {
