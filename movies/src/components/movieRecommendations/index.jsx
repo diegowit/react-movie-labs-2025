@@ -12,7 +12,7 @@ import { excerpt } from "../../util";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from '../spinner'
 import MovieList from "../movieList";
-import AddToPlaylistsIcon from "../cardIcons/PlaylistAdd";
+import AddToPlaylistsIcon from "../cardIcons/addToPlaylists";
 
 
 export default function MovieRecommendation({ movie }) {

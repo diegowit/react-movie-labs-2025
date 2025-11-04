@@ -3,7 +3,7 @@ import { getMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylistsIcon from '../components/cardIcons/PlaylistAdd'
+import AddToPlaylistsIcon from '../components/cardIcons/addToPlaylists'
 import { getPopularMovies } from "../api/tmdb-api";
 
 
